@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="three.min.js"></script>
+		<script src="human.js"></script>
+	</head>
+	
+	<body>
+		<h1>"Тренировка"<br><small>ф.н. 81520 &ndash; група 1 &ndash; Моника Киркова</small></h1>
+		<audio autoplay> 
+			<source src = "Little_Mix_-_Word_Up[Mp3Converter.net].mp3" type = "audio/mpeg">
+		</audio> 
+		<script>
+			// нагласяване на цвета и центрирането на текста с имената ви
+			document.getElementsByTagName('h1')[0].style = 'color:white; text-align:center; font-size:1.75em';
+			
+			// рисувателно поле на цял екран
+			renderer = new THREE.WebGLRenderer({antialias:true});
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+			renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0; z-index:-1;';
+			
+			// сцена и камера
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera( 35, window.innerWidth/window.innerHeight, 0.1, 2000 );
+			camera.position.set(0,3,150);
+
+			// светлини
+			var light = new THREE.DirectionalLight('lightblue',0.8);
+			light.position.set(0,1,4);
+			scene.add(light);
+			scene.add( new THREE.AmbientLight('white',0.4) );
+			
+			//стена
+			var geometry = new THREE.BoxGeometry(400,150,5);
+			var material = new THREE.MeshPhongMaterial({color: "lightpink"});
+			var wall = new THREE.Mesh(geometry, material);
+				wall.position.z = -90;
+				wall.position.y = 65;
+				scene.add(wall);
+			var geometry1 = new THREE.BoxGeometry(2,150,5);
+			var material1 = new THREE.MeshPhongMaterial({color: "lightgreen"});
+			for (var i=-200; i<200; i+=6)
+			{
+				var stripe = new THREE.Mesh( geometry1, material1 );
+				stripe.position.x=i;
+				scene.add( stripe );
+				stripe.position.z=-90;
+				stripe.position.y=65;
+			}
+
+			//под
+			var texture = new THREE.TextureLoader().load('967996de-5cd5-4acb-b8d2-3c2a06bc58a6.jpg');
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set( 9, 6 );
+
+			var geometry = new THREE.BoxGeometry(450,300,5);
+			var material = new THREE.MeshPhongMaterial({map: texture});
+			var floor = new THREE.Mesh(geometry, material);
+				floor.position.z = -90;
+				floor.position.y = -30;
+				floor.rotation.x= -Math.PI/2.15;
+				scene.add(floor);
+			
+			//колело
+			var texture = new THREE.TextureLoader().load('big_4073b988-82bb-4755-88d2-fd6e49a24641.jpg');
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set( 1, 1 );
+
+			var geometry = new THREE.CylinderGeometry(8, 8, 3, 64);
+			var material = new THREE.MeshPhongMaterial({map : texture});
+			var wheel1 = new THREE.Mesh(geometry, material);
+			wheel1.rotation.x = -Math.PI/2;
+			wheel1.position.x = -50;
+			wheel1.position.y = -5;
+			scene.add(wheel1);
+
+			var geometry = new THREE.CylinderGeometry(8, 8, 3, 64);
+			var material2 = new THREE.MeshPhongMaterial({map : texture});
+			var wheel2 = new THREE.Mesh(geometry, material2);
+			wheel2.rotation.x = -Math.PI/2;
+			wheel2.position.x = -75;
+			wheel2.position.y = -5;
+			scene.add(wheel2);
+
+			var geometry = new THREE.CylinderGeometry(1, 1, 13, 64);
+			var material = new THREE.MeshPhongMaterial({color: "grey"});
+			var tube1 = new THREE.Mesh(geometry, material);
+			tube1.position.x = -75;
+			tube1.position.y = 7;
+			scene.add(tube1);
+
+			var geometry = new THREE.CylinderGeometry(1, 1, 25, 64);
+			var tube2 = new THREE.Mesh(geometry, material);
+			tube2.position.x = -50;
+			tube2.position.y = 7;
+			scene.add(tube2);
+
+			var geometry = new THREE.CylinderGeometry(1, 1, 25, 64);
+			var tube3 = new THREE.Mesh(geometry, material);
+			tube3.rotation.z = -Math.PI/2;
+			tube3.position.x = -62.7;
+			tube3.position.y = 10.5;
+			scene.add(tube3);
+
+			var material1 = new THREE.MeshPhongMaterial({color: "black"});
+
+			var seat = new THREE.Shape();
+            seat.moveTo(-55, 7);
+            seat.lineTo(-55, 1);
+            seat.lineTo(-48, 4);
+
+            var extrudeSettings = {
+            steps: 1,
+            amount: 2,
+            bevelEnabled: false,
+            bevelThickness: 0,
+            bevelSize: 0,
+            bevelSegments: 0
+            };
+
+            var geometry = new THREE.ExtrudeGeometry(seat, extrudeSettings);
+
+            var sit = new THREE.Mesh(geometry, material1);
+            sit.rotation.x= -Math.PI/2.4;
+			sit.position.x = -22;
+			sit.position.y = 12;
+			sit.position.z = 3;
+			scene.add(sit);
+
+			//лежанка
+			var geometry = new THREE.CylinderGeometry(1, 1, 12, 64);
+			var tube4 = new THREE.Mesh(geometry, material);
+			tube4.position.x = 82;
+			tube4.position.y = -10;
+			scene.add(tube4);
+
+			
+			var tube5 = new THREE.Mesh(geometry, material);
+			tube5.position.x = 82;
+			tube5.position.y = -10;
+			tube5.position.z = - 14;
+			scene.add(tube5);
+
+			var tube6 = new THREE.Mesh(geometry, material);
+			tube6.position.x = 53;
+			tube6.position.y = -10;
+			tube6.position.z = - 15;
+			scene.add(tube6);
+
+			var tube7 = new THREE.Mesh(geometry, material);
+			tube7.position.x = 53;
+			tube7.position.y = -10;
+			scene.add(tube7);
+
+			var geometry = new THREE.BoxGeometry (15,40,2.5);
+			var material = new THREE.MeshPhongMaterial({color: "black"});
+			var plot = new THREE.Mesh(geometry, material);
+			plot.rotation.x = -Math.PI/2.1;
+			plot.rotation.z = Math.PI/2;
+			plot.position.x = 66;
+			plot.position.y = -4;
+			plot.position.z = -5;			
+			scene.add(plot);
+
+			//лост
+			var geometry = new THREE.CylinderGeometry(1, 1, 30, 64);
+			var weight = new THREE.Mesh(geometry, material);
+			weight.rotation.z = -Math.PI/2;
+			weight.rotation.y = Math.PI/2;
+			weight.position.x = 67;
+			weight.position.y = 9.5;
+			weight.position.z = -8;
+			scene.add(weight);
+
+			//прозорец
+			var texture = new THREE.TextureLoader().load('ocean-164630_640.jpg');
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set( 1, 1 );
+
+			var geometry = new THREE.BoxGeometry(40,30,5);
+			var material = new THREE.MeshPhongMaterial({map : texture});
+			var windows = new THREE.Mesh(geometry, material);
+				windows.position.z = -90;
+				windows.position.y = 55;
+				windows.position.x = -55
+				scene.add(windows);	
+
+			var windows1 = new THREE.Mesh(geometry, material);
+				windows1.position.z = -90;
+				windows1.position.y = 55;
+				windows1.position.x = 55
+				scene.add(windows1);	
+
+			var texture = new THREE.TextureLoader().load('mat.jpg');
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set( 1, 1 );
+
+			//килимче
+			var geometry = new THREE.BoxGeometry(50, 1, 20);
+			var material = new THREE.MeshPhongMaterial({map:texture});
+			var carpet = new THREE.Mesh(geometry, material);
+			carpet.position.set(2, -35, 0);
+			scene.add(carpet);
+			// функция за анимиране на сцената
+			var t = 0; // време
+			function drawFrame()
+			{
+				requestAnimationFrame( drawFrame );
+				if (animate) animate(t++);
+				renderer.render( scene, camera );
+			}			
+			
+		
+
+			// човече
+			манекен = мъжествен();
+			манекен.rotation.y = -Math.PI/1.001;
+			манекен.rotation.z = Math.PI/1.92;
+			манекен.position.x = 58;
+			манекен.position.y = 2.8;
+			манекен.position.z = -8;
+			манекен.л_крак.rotation.z = -6*Math.PI;
+			манекен.д_крак.rotation.z =-6*Math.PI;
+			манекен.л_коляно.rotation.z = Math.PI/2.5;
+			манекен.д_коляно.rotation.z = Math.PI/2.5;
+			манекен.л_ръка.rotation.z = Math.PI/9;
+			манекен.д_ръка.rotation.z =Math.PI/9;
+			манекен.л_лакът.rotation.z = -Math.PI/1.8;
+			манекен.д_лакът.rotation.z =-Math.PI/1.8;
+			манекен.л_китка.rotation.z = -Math.PI/2.3;
+			манекен.д_китка.rotation.z =-Math.PI/2.3;
+			var br = 0;
+			
+
+			манекен1 = женствен();
+			манекен1.rotation.y = -Math.PI/2;
+			// тук се описват статичните елементи на позата
+			
+			// анимация на човечето
+			animate = function (t)
+			{
+				
+				nachalo = 40*sin(1.5*t)+45;
+				манекен1.врат.врът(0, 0, -15*sin(1.1*t)-10);
+				if(nachalo < 45)
+				{
+					манекен.л_ръка.врът(0, 0, 85*sin(1.5*t)+2);
+					манекен.д_ръка.врът(0, 0, 85*sin(1.5*t)+2);
+					манекен.л_лакът.врът(0, 0, -85*sin(1.5*t)-2);
+					манекен.д_лакът.врът(0, 0, -85*sin(1.5*t)-2);
+					weight.position.y = 10*(2*sin(1.5*t) + 1)+ (1 - 2*sin(1.5*t)-1)*16.2;
+					weight.position.x = 67*(2*sin(1.5*t) + 1)+ (1 - 2*sin(1.5*t)-1)*70;
+					br += 1;
+					
+				}
+				
+				if(nachalo > 45)
+				{
+					
+					манекен.тяло.врът(0, 0, -45*sin(1.5*t)-0.5);
+					манекен.л_китка.врът(0, 0, -40*sin(1.5*t)+5);
+					манекен.д_китка.врът(0, 0, -40*sin(1.5*t)+5);
+					
+					if((Math.floor(br / 90)) % 2 == 0)
+					{
+						манекен.л_крак.врът(0, 0, -80*sin(1.5*t)+5);
+					}
+					if((Math.floor(br / 90)) % 2 != 0)
+					{
+						манекен.д_крак.врът(0, 0, -80*sin(1.5*t)+5);
+					}
+				}
+				if (br == 450)
+					br = 90;
+		
+
+				if(nachalo > 40)
+				{
+					манекен1.д_крак.врът(0, 0, -45*sin(1.5*t)-40);
+					манекен1.д_коляно.врът(0, 0, 45*sin(1.5*t)+40);
+					манекен1.л_ръка.врът(0, -25*sin(1.5*t)-20, -80*sin(1.5*t)-75);
+				}
+				if (nachalo < 40)
+				{
+					манекен1.д_крак.врът(35*sin(1.5*t)- 30, 0, 0);
+					манекен1.д_коляно.врът(0, 0, -45*sin(1.5*t)+40);
+					манекен1.тяло.врът(5*sin(1.5*t)-1, 0, 0);
+					
+				}
+				// тук се описват динамичните елементи на позата
+				// като променливата t е номер на кадър, като се
+				// очаква 1 секунда да е приблизително 60 кадъра
+				
+			}
+		
+			drawFrame();
+		</script>
+	</body>
+</html>
